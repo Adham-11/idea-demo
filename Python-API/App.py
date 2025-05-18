@@ -27,6 +27,15 @@ db = client[DB_NAME]
 def index():
     return "✅ ML Flask API is running"
 
+@app.route('/detect_fraud', methods=['GET'])
+def detect_fraud():
+    try:
+        from fraud_detector import run_detection
+        return jsonify(run_detection())
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 @app.route('/analyze', methods=['POST'])
 def analyze_data():
     try:
@@ -61,6 +70,9 @@ def analyze_data():
 
         project_predictions = predict_on_projects()
 
+        fraud_count = db.projects.count_documents({'fraud_flag': 1})
+
+
         return jsonify({
             "chat_types": chat_type_counts,
             "meeting_statuses": meeting_status_counts,
@@ -69,7 +81,8 @@ def analyze_data():
             "user_roles": user_role_counts,
             "staff_roles": staff_role_counts,
             "staff_statuses": staff_status_counts,
-            "project_predictions": project_predictions
+            "project_predictions": project_predictions,
+            "fraud_count":fraud_count,
         })
 
     except Exception as e:
