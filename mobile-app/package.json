@@ -24,6 +24,7 @@
     "expo-status-bar": "~2.2.3",
     "expo-updates": "~0.28.12",
     "jwt-decode": "^4.0.0",
+    "metro-core": "^0.82.3",
     "mobile-app": "file:",
     "navigation": "^6.2.0",
     "react": "19.0.0",

@@ -47,7 +47,7 @@ function EmployeeSideBar() {
     <motion.div
       className={`bg-white flex flex-col fixed top-0 left-0 h-[96vh] z-20 sm:static sm:z-auto ${
         isExpanded ? "w-64" : "w-20"
-      } transition-all duration-300 sm:${isExpanded ? "w-64" : "w-20"} shadow-md`}
+      } transition-all duration-300 sm:${isExpanded ? "w-64" : "w-20"} `}
       initial={{ width: isExpanded ? 256 : 80 }}
       animate={{ width: isExpanded ? 256 : 80 }}
       transition={{ duration: 0.3 }}

@@ -59,7 +59,7 @@ const ProjectSchema = new mongoose.Schema(
     project_stage: {
       type: String,
       required: true,
-      enum: ['Seed', 'Series A', 'Series B', 'Growth']
+      enum: ['Seed', 'Launch', 'Growth']
     },
 
     // Step 2 – Description

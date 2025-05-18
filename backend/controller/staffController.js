@@ -556,6 +556,18 @@ const getAllAuditors = async (req, res) => {
   }
 };
 
+const { analyzeWithPython } = require('../python-API/pythonService');
+
+const pythonService = async (req, res) => {
+  try {
+        const inputData = req.body;
+        const result = await analyzeWithPython(inputData);
+        res.json(result);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to analyze data' });
+    }
+};
+
 module.exports = 
 { 
     createStaff,
@@ -573,5 +585,6 @@ module.exports =
     getMeetingStatus,
     getInvestorMeetings,
     getUserByID,
-    getAllAuditors
+    getAllAuditors,
+    pythonService,
 };

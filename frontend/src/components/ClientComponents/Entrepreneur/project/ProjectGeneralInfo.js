@@ -321,7 +321,7 @@ function ProjectGeneralInfo({
           </div>
         </div>
         <div style={{ flex: 1 }}>
-          {form.stage && !['Seed', 'Series A', 'Series B', 'Growth'].includes(form.stage) && (
+          {form.stage && !['Seed', 'Launch', 'Growth'].includes(form.stage) && (
             <span style={{ color: '#e53e3e', fontSize: '0.9rem' }}>
               Please select a valid stage
             </span>
@@ -335,8 +335,7 @@ function ProjectGeneralInfo({
           >
             <option value="" disabled>Select a stage</option>
             <option value="Seed">Seed</option>
-            <option value="Series A">Series A</option>
-            <option value="Series B">Series B</option>
+            <option value="Launch">Launch</option>
             <option value="Growth">Growth</option>
           </Select>
         </div>

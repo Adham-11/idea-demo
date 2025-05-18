@@ -1,0 +1,8 @@
+Flask==2.2.2
+pymongo==4.2.0
+python-dotenv==0.21.0
+requests==2.28.2
+pandas==1.5.3       # Optional (remove if not used)
+numpy==1.23.4       # Optional (remove if not used)
+scikit-learn==1.2.0 # Optional (remove if not used)
+flask-cors==3.0.10

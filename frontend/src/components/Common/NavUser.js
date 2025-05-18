@@ -12,6 +12,8 @@ function NavUser({ isAuthenticated, role, clientRole }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [imageError, setImageError] = useState(false);
+
   const { signOutDistroySession, API_BASE_URL } = useFunctions();
   const clientData = useSelector((state) => state.clientAuth.clientData); 
   const userImage = clientData?.image ? `${API_BASE_URL}/Uploads/user_images/${clientData.image}` : null; 
@@ -39,17 +41,21 @@ function NavUser({ isAuthenticated, role, clientRole }) {
     toggleDropdown();
   };
 
-  // Determine icon or image to display
   const renderUserIcon = () => {
-    if (isAuthenticated && role === 'client' && userImage) {
-      return <img src={userImage} alt="User" className="userProfileImage" onError={(e) => {
-        e.target.style.display = 'none'; // Hide image on error
-        e.target.nextSibling.style.display = 'inline'; // Show fallback icon
-      }} />;
-    }
     if (isAuthenticated && role === 'client') {
       const icon = clientRole === 'Investor' ? 'briefcase' : 'lightbulb';
-      return <FontAwesomeIcon icon={icon} className="userIconSVG" style={{ display: userImage ? 'none' : 'inline' }} />;
+      if (userImage && !imageError) {
+        return (
+          <img
+            src={userImage}
+            alt="User"
+            className="userProfileImage"
+            onError={() => setImageError(true)}
+          />
+        );
+      } else {
+        return <FontAwesomeIcon icon={icon} className="userIconSVG" />;
+      }
     }
     return <FontAwesomeIcon icon="user" className="userIconSVG" />;
   };

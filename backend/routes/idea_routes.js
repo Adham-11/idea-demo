@@ -51,7 +51,8 @@ const { createStaff,
    getMeetingStatus,
    getInvestorMeetings,
    getUserByID,
-   getAllAuditors
+   getAllAuditors,
+   pythonService,
   } = require('../controller/staffController');
 const { authenticateToken, isAdmin } = require('../middleWare/middleWare');
 const userImageUploads = require('../middleWare/userImageUploads');
@@ -130,6 +131,9 @@ router.get('/meeting/status/:project_id/:investor_id/:entrepreneur_id', authenti
 
 // Route to get investor's meetings
 router.get('/investor-meetings', authenticateToken, getInvestorMeetings);
+
+// python API route
+router.post('/analyze', authenticateToken, isAdmin, pythonService);
 
 
 // -----------------------------------------------------------------------------------> client portal <-----------------------------------------------------------------------------------
