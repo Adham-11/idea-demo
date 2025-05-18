@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 # from flask_cors import CORS
 from predictor import predict_on_projects
+from fraud_detector import run_detection
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
@@ -34,7 +35,6 @@ def detect_fraud():
         return jsonify(run_detection())
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 
 @app.route('/analyze', methods=['POST'])
 def analyze_data():
@@ -70,8 +70,9 @@ def analyze_data():
 
         project_predictions = predict_on_projects()
 
-        fraud_count = db.projects.count_documents({'fraud_flag': 1})
-
+        fraud_result = run_detection()
+        fraud_count = len(fraud_result.get('flagged_projects', []))
+        flagged_projects = fraud_result.get('flagged_projects', [])
 
         return jsonify({
             "chat_types": chat_type_counts,
@@ -82,7 +83,8 @@ def analyze_data():
             "staff_roles": staff_role_counts,
             "staff_statuses": staff_status_counts,
             "project_predictions": project_predictions,
-            "fraud_count":fraud_count,
+            "fraud_count": fraud_count,
+            "flagged_projects": flagged_projects
         })
 
     except Exception as e:

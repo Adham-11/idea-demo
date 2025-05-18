@@ -64,12 +64,13 @@ def predict_on_projects():
             probs = model.predict_proba(input_df)[:, 1]
 
             predictions.append({
-                "model": model_name,
-                "predictions": [{
-                    "project_id": str(project.get('_id')),
-                    "predicted_success": bool(preds[i]),
-                    "confidence": round(probs[i] * 100, 2)
-                } for i, project in enumerate(projects)]
+            "model": model_name,
+            "predictions": [{
+                "project_id": str(project.get('_id')),
+                "project_name": project.get('project_name', 'Unknown'),  # Add project_name
+                "predicted_success": bool(preds[i]),
+                "confidence": round(probs[i] * 100, 2)
+            } for i, project in enumerate(projects)]
             })
 
         return predictions

@@ -556,17 +556,27 @@ const getAllAuditors = async (req, res) => {
   }
 };
 
-const { analyzeWithPython } = require('../python-API/pythonService');
+const { analyzeWithPython, analyzeWithPythonFraud } = require('../python-API/pythonService');
 
 const pythonService = async (req, res) => {
   try {
-        const inputData = req.body;
-        const result = await analyzeWithPython(inputData);
-        res.json(result);
-    } catch (err) {
-        res.status(500).json({ error: 'Failed to analyze data' });
-    }
+    const inputData = req.body;
+    const result = await analyzeWithPython(inputData);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to analyze data' });
+  }
 };
+
+const pythonServiceFraudDetection = async (req, res) => {
+  try {
+    const result = await analyzeWithPythonFraud();  
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to detect fraud' });
+  }
+};
+
 
 module.exports = 
 { 
@@ -587,4 +597,5 @@ module.exports =
     getUserByID,
     getAllAuditors,
     pythonService,
+    pythonServiceFraudDetection,
 };

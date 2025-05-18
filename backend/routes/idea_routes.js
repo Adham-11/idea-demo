@@ -53,6 +53,7 @@ const { createStaff,
    getUserByID,
    getAllAuditors,
    pythonService,
+   pythonServiceFraudDetection,
   } = require('../controller/staffController');
 const { authenticateToken, isAdmin } = require('../middleWare/middleWare');
 const userImageUploads = require('../middleWare/userImageUploads');
@@ -134,6 +135,9 @@ router.get('/investor-meetings', authenticateToken, getInvestorMeetings);
 
 // python API route
 router.post('/analyze', authenticateToken, isAdmin, pythonService);
+
+// python API route
+router.get('/detect_fraud', authenticateToken, isAdmin, pythonServiceFraudDetection);
 
 
 // -----------------------------------------------------------------------------------> client portal <-----------------------------------------------------------------------------------
